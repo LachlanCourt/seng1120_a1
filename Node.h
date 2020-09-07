@@ -3,11 +3,11 @@ using namespace std;
 #ifndef NODE_CLASS
 #define NODE_CLASS
 #include <string>
+
 class Node
 {
 	public:
 		typedef string value_type;
-	
 		Node();
 		Node(Node* p = NULL, Node* n = NULL, value_type* i = new value_type());
 		Node(value_type* i = new value_type());

@@ -3,14 +3,17 @@ using namespace std;
 #ifndef LACHLAN_LINKEDLIST
 #define LACHLAN_LINKEDLIST
 #include "Node.h"
+
 class LinkedList
 {
+	
 	public:
 		typedef Node::value_type value_type;
 		LinkedList();
 		~LinkedList();
 		int getSize() const;
-		void add(value_type* data_);
+		void add(const char* data_);
+		void addToTail(value_type* data_);
 		void addToHead(value_type* data_);
 		void remove(const string identifier);
 		
@@ -18,7 +21,7 @@ class LinkedList
 		int jumpToTail();
 		int moveNext();
 		int movePrev();
-		value_type* getCurrent();
+		value_type* getCurrent() const;
 	private:
 		Node* head;
 		Node* tail;

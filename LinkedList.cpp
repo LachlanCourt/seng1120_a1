@@ -12,11 +12,13 @@ LinkedList::LinkedList()
 }
 LinkedList::~LinkedList()
 {}
+
 int LinkedList::getSize() const
 {
 	return size;
 }
-void LinkedList::add(value_type* data_)
+
+void LinkedList::addToTail(value_type* data_)
 {
 	if ((head == NULL) && (tail == NULL))
 	{
@@ -32,6 +34,26 @@ void LinkedList::add(value_type* data_)
 		tail = current;
 		size++;
 	}
+}
+
+void LinkedList::add(const char* data_)
+{
+	value_type data = data_;
+	value_type* temp = new value_type("");
+	for (long unsigned int i = 0; i < data.length(); i++)
+	{
+		if (data[i] == ' ')
+		{
+			addToTail(temp);
+			temp = new value_type("");
+		}
+		else
+		{
+			*temp += data[i];
+		}
+	}
+	addToTail(temp);
+	temp = NULL;
 }
 
 void LinkedList::addToHead(value_type* data_)
@@ -145,7 +167,7 @@ int LinkedList::movePrev()
 	return 0;
 }
 
-value_type* LinkedList::getCurrent()
+value_type* LinkedList::getCurrent() const
 {
 	return current->getData();
 }
@@ -159,7 +181,7 @@ ostream& operator << (ostream& out, LinkedList& temp)
 	}
 	do
 	{
-		out << *temp.getCurrent() << endl;
+		out << *temp.getCurrent() << " ";
 	}
 	while (temp.moveNext() == 0);
 	return out;

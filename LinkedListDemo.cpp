@@ -14,8 +14,8 @@ using namespace std;
 
 void initialize(LinkedList &l1, LinkedList &l2)
 {
-    //l1.add("the black cat was sitting on the black mat that was on the black floor");
-	//l2.add("the dog scared the cat and the cat ran away");
+    l1.add("the black cat was sitting on the black mat that was on the black floor");
+	l2.add("the dog scared the cat and the cat ran away");
 }
 
 int main()
@@ -23,13 +23,13 @@ int main()
     LinkedList firstList;
 	LinkedList secondList;
 	
-	//initialize(firstList, secondList);
+	initialize(firstList, secondList);
 
-	/*
+	
 	cout << "Start lists:" << endl;
 	cout << "List 1: " << firstList  <<  endl;
 	cout << "List 2: " << secondList <<  endl << endl;
-
+/*
 	cout << "Concatenating the two lists onto list '1':" << endl;
 	firstList += secondList;
     cout << "List 1: " << firstList  << endl;
