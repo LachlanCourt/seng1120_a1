@@ -2,11 +2,11 @@
 using namespace std;
 #ifndef NODE_CLASS
 #define NODE_CLASS
-#include "Account.h"
+#include <string>
 class Node
 {
 	public:
-		typedef Account value_type;
+		typedef string value_type;
 	
 		Node();
 		Node(Node* p = NULL, Node* n = NULL, value_type* i = new value_type());

@@ -63,11 +63,12 @@ void LinkedList::remove(string identifier)
 	bool identified = false;
 	do
 	{
-		if (identifier == current->getData()->getName())
+		/*
+		if (identifier == current->getData())
 		{
 			identified = true;
 			break;
-		}
+		}*/
 	}
 	while (moveNext() == 0);
 	

@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 #include "Node.h"
-typedef Account value_type;
+typedef string value_type;
 
 Node::Node()
 {
