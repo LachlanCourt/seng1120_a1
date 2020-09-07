@@ -12,7 +12,7 @@ class LinkedList
 		LinkedList();
 		~LinkedList();
 		int getSize() const;
-		void add(const char* data_);
+		void add(const value_type data);
 		void addToTail(value_type* data_);
 		void addToHead(value_type* data_);
 		void remove(const string identifier);

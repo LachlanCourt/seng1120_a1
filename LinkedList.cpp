@@ -36,9 +36,8 @@ void LinkedList::addToTail(value_type* data_)
 	}
 }
 
-void LinkedList::add(const char* data_)
+void LinkedList::add(const value_type data)
 {
-	value_type data = data_;
 	value_type* temp = new value_type("");
 	for (long unsigned int i = 0; i < data.length(); i++)
 	{
@@ -74,7 +73,7 @@ void LinkedList::addToHead(value_type* data_)
 	}
 }
 
-void LinkedList::remove(string identifier)
+void LinkedList::remove(value_type identifier)
 {
 	if ((head == NULL) && (tail == NULL))
 	{
@@ -85,12 +84,37 @@ void LinkedList::remove(string identifier)
 	bool identified = false;
 	do
 	{
-		/*
-		if (identifier.compare(current->getData()) == 0)
+		
+		if (identifier == *getCurrent())
 		{
 			identified = true;
-			break;
-		}*/
+			
+			if (head == tail)
+			{
+				current = head;
+				head = NULL;
+				tail = NULL;
+			}
+			else if (current == head)
+			{
+				head = current->getNext();
+				head->setPrev(NULL);
+		
+			}
+			else if (current == tail)
+			{
+				tail = current->getPrev();
+				tail->setNext(NULL);
+		
+			}
+			else
+			{
+				current->getPrev()->setNext(current->getNext());
+				current->getNext()->setPrev(current->getPrev());
+			}
+			delete(current);
+			current = head;
+		}
 	}
 	while (moveNext() == 0);
 	
@@ -100,31 +124,6 @@ void LinkedList::remove(string identifier)
 		return;
 	}
 	
-	if (head == tail)
-	{
-		current = head;
-		head = NULL;
-		tail = NULL;
-	}
-	else if (current == head)
-	{
-		head = current->getNext();
-		head->setPrev(NULL);
-		
-	}
-	else if (current == tail)
-	{
-		tail = current->getPrev();
-		tail->setNext(NULL);
-		
-	}
-	else
-	{
-		current->getPrev()->setNext(current->getNext());
-		current->getNext()->setPrev(current->getPrev());
-	}
-	delete(current);
-	current = head;
 }
 
 int LinkedList::jumpToHead()
@@ -172,17 +171,18 @@ value_type* LinkedList::getCurrent() const
 	return current->getData();
 }
 
-void LinkedList::operator += (LinkedList& temp)
+void LinkedList::operator += (LinkedList& other)
 {
-	if (temp.jumpToHead() == -1)
+	if (other.jumpToHead() == -1)
 	{
 		return;
 	}
 	do
 	{
-		addToTail(temp.getCurrent());
+		value_type* temp = new value_type(*other.getCurrent());
+		addToTail(temp);
 	}
-	while (temp.moveNext() == 0);
+	while (other.moveNext() == 0);
 }
 
 

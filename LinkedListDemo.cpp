@@ -34,7 +34,7 @@ int main()
 	firstList += secondList;
     cout << "List 1: " << firstList  << endl;
 	cout << "List 2: " << secondList << endl << endl;
-/*
+
 	cout << "Removing the word 'was' from list '1':" << endl;
     firstList.remove("was");
     cout << "List 1: " << firstList  << endl;
@@ -50,7 +50,7 @@ int main()
     secondList.remove("cat");
     cout << "List 1: " << firstList  << endl;
 	cout << "List 2: " << secondList << endl << endl;
-
+/*
 	cout << "Number of occurrences of 'black' in list 1: ";
 	cout << firstList.count("black") << endl << endl;
 	
