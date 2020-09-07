@@ -86,7 +86,7 @@ void LinkedList::remove(string identifier)
 	do
 	{
 		/*
-		if (identifier == current->getData())
+		if (identifier.compare(current->getData()) == 0)
 		{
 			identified = true;
 			break;
@@ -172,6 +172,20 @@ value_type* LinkedList::getCurrent() const
 	return current->getData();
 }
 
+void LinkedList::operator += (LinkedList& temp)
+{
+	if (temp.jumpToHead() == -1)
+	{
+		return;
+	}
+	do
+	{
+		addToTail(temp.getCurrent());
+	}
+	while (temp.moveNext() == 0);
+}
+
+
 ostream& operator << (ostream& out, LinkedList& temp)
 {
 	if (temp.jumpToHead() == -1)
@@ -186,3 +200,56 @@ ostream& operator << (ostream& out, LinkedList& temp)
 	while (temp.moveNext() == 0);
 	return out;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

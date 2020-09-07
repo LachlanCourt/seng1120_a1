@@ -22,11 +22,15 @@ class LinkedList
 		int moveNext();
 		int movePrev();
 		value_type* getCurrent() const;
+		
+		void operator += (LinkedList& temp);
+	
 	private:
 		Node* head;
 		Node* tail;
 		Node* current;
 		int size;
+		
 };
 
 ostream& operator << (ostream& out, LinkedList& temp);

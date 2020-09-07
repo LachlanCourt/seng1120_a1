@@ -29,12 +29,12 @@ int main()
 	cout << "Start lists:" << endl;
 	cout << "List 1: " << firstList  <<  endl;
 	cout << "List 2: " << secondList <<  endl << endl;
-/*
+
 	cout << "Concatenating the two lists onto list '1':" << endl;
 	firstList += secondList;
     cout << "List 1: " << firstList  << endl;
 	cout << "List 2: " << secondList << endl << endl;
-
+/*
 	cout << "Removing the word 'was' from list '1':" << endl;
     firstList.remove("was");
     cout << "List 1: " << firstList  << endl;
