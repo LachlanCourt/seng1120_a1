@@ -45,6 +45,7 @@ void LinkedList::add(value_type data)
 	{
 		if (data[i] == ' ')
 		{
+			cout << *temp;
 			addToTail(temp);
 			temp = new value_type();
 		}
@@ -81,12 +82,9 @@ void LinkedList::remove(value_type identifier)
 	{
 		return;
 	}
-	
-	jumpToHead();
-	bool identified = false;
-	do
+	bool identified;
+	for (current = head; current != NULL; moveNext())
 	{
-		
 		if (identifier == *getCurrent())
 		{
 			identified = true;
@@ -115,10 +113,9 @@ void LinkedList::remove(value_type identifier)
 				current->getNext()->setPrev(current->getPrev());
 			}
 			delete(current);
-			current = head;
+			jumpToHead();
 		}
 	}
-	while (moveNext() == 0);
 	
 	if (!identified)
 	{
@@ -134,123 +131,63 @@ int LinkedList::count(const value_type identifier)
 	{
 		return -1;
 	}
-	do
+	for (current = head; current != NULL; moveNext())
 	{
 		if (identifier == *getCurrent())
 		{
 			occurrences++;
 		}
 	}
-	while (moveNext() == 0);
 	return occurrences;
 }
 
 void LinkedList::sort()
 {
-	string a;
-	string b;
-	//Node* temp;
+	value_type a;
+	value_type b;
 	bool restart = false;
 
-		for (current = head; current->getNext() != NULL; moveNext())
+	for (current = head; current->getNext() != NULL; moveNext())
+	{
+		if (restart)
 		{
-			if (restart)
-			{
-				jumpToHead();
-				restart = false;
-			}
-			a = *current->getData();
-			b = *current->getNext()->getData();
-			
-			
-			int smallest = (int)a.length();
-			if ((int)b.length() < smallest)
-			{
-				smallest = b.length();
-			}
-			
-			int i;
-			for (i = 0; i < smallest; i++)
-			{
-				if ((int)a[i] != (int)b[i])
-				{
-					break;
-				}
-			}
-			if (i == smallest)
-			{
-				continue;
-			}
-			if ((int)a[i] > (int)b[i])
-			{
-				swap(current, current->getNext());
-				
-				if (current == head)
-				{
-					head = current->getPrev();
-				}
-				restart = true;
-				jumpToHead();
-				
-			}
-		//}
-		/*
-		jumpToHead();
-		movingHead = true;
-		while (moveNext() == 0)
-		{
-			cout << "here";
-			movePrev();
-			a = *getCurrent();
-			temp = current;
-			moveNext();
-			b = *getCurrent();
+			jumpToHead();
+			restart = false;
+		}
+		a = *current->getData();
+		b = *current->getNext()->getData();
 		
-			index = 0;
-			while (int(a[index]) == int(b[index]))
+		
+		int smallest = (int)a.length();
+		if ((int)b.length() < smallest)
+		{
+			smallest = b.length();
+		}
+		
+		int i;
+		for (i = 0; i < smallest; i++)
+		{
+			if ((int)a[i] != (int)b[i])
 			{
-				cout << "beans";
-				index++;
-				if ((index > a.length()) || (index > b.length()))
-				{
-					break;
-				}
+				break;
 			}
-			cout << index;
-			if ((index > a.length()) || (index > b.length()))
-			{
-				//The words are the same, no need to swap them
-				movingHead = false;
-				//cout << "Continuing";
-				continue;
-			}
+		}
+		if (i == smallest)
+		{
+			continue;
+		}
+		if ((int)a[i] > (int)b[i])
+		{
+			swap(current, current->getNext());
 			
-			cout << "\n" << int(a[index]) << " ";
-			cout << int(b[index]) << endl;
-			
-			if (int(b[index]) < int(a[index]))
+			if (current == head)
 			{
-				cout << "Swapping";
-				swap(temp, current);
-				if (movingHead)
-				{
-					head = current;
-					movingHead = false;
-				}
-				//current = temp;
+				head = current->getPrev();
 			}
-			else
-			{				
-				//moveNext();
-			}
-			
-			if (movingHead)
-			{
-				movingHead = false;
-			}
-		}*/
+			restart = true;
+			jumpToHead();
+		}
 	}
-	//temp = NULL;
 }
 
 int LinkedList::jumpToHead()
@@ -275,7 +212,6 @@ int LinkedList::jumpToTail()
 
 int LinkedList::moveNext()
 {
-	//cout << "Next";
 	current = current->getNext();
 	if (current == NULL)
 	{
@@ -286,7 +222,6 @@ int LinkedList::moveNext()
 
 int LinkedList::movePrev()
 {
-	//cout << "Prev";
 	current = current->getPrev();
 	if (current == NULL)
 	{
