@@ -1,3 +1,5 @@
+///cygdrive/C/Users/lachl/OneDrive/Documents/Uni/SENG1120_Assessment/Assignment1
+
 #include <iostream>
 using namespace std;
 #include "LinkedList.h"
@@ -36,15 +38,15 @@ void LinkedList::addToTail(value_type* data_)
 	}
 }
 
-void LinkedList::add(const value_type data)
+void LinkedList::add(value_type data)
 {
-	value_type* temp = new value_type("");
+	value_type* temp = new value_type();
 	for (long unsigned int i = 0; i < data.length(); i++)
 	{
 		if (data[i] == ' ')
 		{
 			addToTail(temp);
-			temp = new value_type("");
+			temp = new value_type();
 		}
 		else
 		{
@@ -123,7 +125,132 @@ void LinkedList::remove(value_type identifier)
 		cout << "No such item in list" << endl;
 		return;
 	}
-	
+}
+
+int LinkedList::count(const value_type identifier)
+{
+	int occurrences = 0;
+	if (jumpToHead() == -1)
+	{
+		return -1;
+	}
+	do
+	{
+		if (identifier == *getCurrent())
+		{
+			occurrences++;
+		}
+	}
+	while (moveNext() == 0);
+	return occurrences;
+}
+
+void LinkedList::sort()
+{
+	string a;
+	string b;
+	//Node* temp;
+	bool restart = false;
+
+		for (current = head; current->getNext() != NULL; moveNext())
+		{
+			if (restart)
+			{
+				jumpToHead();
+				restart = false;
+			}
+			a = *current->getData();
+			b = *current->getNext()->getData();
+			
+			
+			int smallest = (int)a.length();
+			if ((int)b.length() < smallest)
+			{
+				smallest = b.length();
+			}
+			
+			int i;
+			for (i = 0; i < smallest; i++)
+			{
+				if ((int)a[i] != (int)b[i])
+				{
+					break;
+				}
+			}
+			if (i == smallest)
+			{
+				continue;
+			}
+			if ((int)a[i] > (int)b[i])
+			{
+				swap(current, current->getNext());
+				
+				if (current == head)
+				{
+					head = current->getPrev();
+				}
+				restart = true;
+				jumpToHead();
+				
+			}
+		//}
+		/*
+		jumpToHead();
+		movingHead = true;
+		while (moveNext() == 0)
+		{
+			cout << "here";
+			movePrev();
+			a = *getCurrent();
+			temp = current;
+			moveNext();
+			b = *getCurrent();
+		
+			index = 0;
+			while (int(a[index]) == int(b[index]))
+			{
+				cout << "beans";
+				index++;
+				if ((index > a.length()) || (index > b.length()))
+				{
+					break;
+				}
+			}
+			cout << index;
+			if ((index > a.length()) || (index > b.length()))
+			{
+				//The words are the same, no need to swap them
+				movingHead = false;
+				//cout << "Continuing";
+				continue;
+			}
+			
+			cout << "\n" << int(a[index]) << " ";
+			cout << int(b[index]) << endl;
+			
+			if (int(b[index]) < int(a[index]))
+			{
+				cout << "Swapping";
+				swap(temp, current);
+				if (movingHead)
+				{
+					head = current;
+					movingHead = false;
+				}
+				//current = temp;
+			}
+			else
+			{				
+				//moveNext();
+			}
+			
+			if (movingHead)
+			{
+				movingHead = false;
+			}
+		}*/
+	}
+	//temp = NULL;
 }
 
 int LinkedList::jumpToHead()
@@ -148,6 +275,7 @@ int LinkedList::jumpToTail()
 
 int LinkedList::moveNext()
 {
+	//cout << "Next";
 	current = current->getNext();
 	if (current == NULL)
 	{
@@ -158,6 +286,7 @@ int LinkedList::moveNext()
 
 int LinkedList::movePrev()
 {
+	//cout << "Prev";
 	current = current->getPrev();
 	if (current == NULL)
 	{
@@ -201,7 +330,22 @@ ostream& operator << (ostream& out, LinkedList& temp)
 	return out;
 }
 
-
+void LinkedList::swap(Node* a, Node* b)
+{
+	a->setNext(b->getNext());
+	b->setNext(a);
+	if (a->getNext() != NULL)
+	{
+		a->getNext()->setPrev(a);
+	}
+	
+	b->setPrev(a->getPrev());
+	a->setPrev(b);
+	if (b->getPrev() != NULL)
+	{
+		b->getPrev()->setNext(b);
+	}
+}
 
 
 

@@ -7,6 +7,7 @@ Node::Node()
 {
 	next = NULL;
 	prev = NULL;
+	data = new value_type();
 }
 		
 Node::Node(Node* p, Node* n, value_type* i)

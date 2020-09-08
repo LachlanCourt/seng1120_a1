@@ -50,7 +50,7 @@ int main()
     secondList.remove("cat");
     cout << "List 1: " << firstList  << endl;
 	cout << "List 2: " << secondList << endl << endl;
-/*
+
 	cout << "Number of occurrences of 'black' in list 1: ";
 	cout << firstList.count("black") << endl << endl;
 	
@@ -65,6 +65,6 @@ int main()
 	firstList.sort();
 	cout << firstList << endl << endl;
 
-	cout << "The program has finished." << endl;*/
+	cout << "The program has finished." << endl;
 	return 0;
 }

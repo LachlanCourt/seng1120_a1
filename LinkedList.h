@@ -15,7 +15,9 @@ class LinkedList
 		void add(const value_type data);
 		void addToTail(value_type* data_);
 		void addToHead(value_type* data_);
-		void remove(const string identifier);
+		void remove(const value_type identifier);
+		int count(const value_type identifier);
+		void sort();
 		
 		int jumpToHead();
 		int jumpToTail();
@@ -30,6 +32,8 @@ class LinkedList
 		Node* tail;
 		Node* current;
 		int size;
+		
+		void swap(Node* a, Node* b);
 		
 };
 

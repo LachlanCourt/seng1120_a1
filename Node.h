@@ -9,8 +9,8 @@ class Node
 	public:
 		typedef string value_type;
 		Node();
-		Node(Node* p = NULL, Node* n = NULL, value_type* i = new value_type());
-		Node(value_type* i = new value_type());
+		Node(Node* p, Node* n, value_type* i);
+		Node(value_type* i);
 		~Node();
 	
 		void setNext(Node* n_);
