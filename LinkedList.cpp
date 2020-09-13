@@ -64,8 +64,11 @@ void LinkedList::add(value_type data)
 			*temp += data[i];
 		}
 	}
-	// The last word doesn't end in a space, so it needs to be added explicitly 
-	addToTail(temp);
+	// The last word doesn't end in a space, so it needs to be added explicitly
+	if (temp->length() != 0)
+	{
+		addToTail(temp);
+	}
 }
 
 // Receives a string that will be added to the Linked List at the end
@@ -135,58 +138,78 @@ void LinkedList::remove(value_type identifier)
 		return;
 	}
 	
+	// Create a new Linked List and add the identifier into the list. A multi word identifier will be added as separate Nodes
+	LinkedList temp = LinkedList();
+	temp.add(identifier);
+	// Check if the temp List is empty
+	if (temp.jumpToHead() == -1)
+	{
+		return;
+	}
 	// Define a value to keep track of whether the identifier has been found in the Linked List
-	bool identified;
+	bool identified = false;
+	// After a deletion, the loop will be restarted
+	bool restart = false;
 	// Loop through the Linked List
 	for (jumpToHead(); current != NULL; moveNext())
 	{
-		// Check if the identifier is the value of the current position in the Linked List
-		if (identifier == *getCurrent())
+		// If a deletion occured last iteration, reset the current to the head
+		if (restart)
 		{
-			identified = true;
-			
-			// If there is one item in the list
-			if (head == tail)
-			{
-				// Reset the head and tail as the list is about to become empty
-				head = NULL;
-				tail = NULL;
-			}
-			// If the first item in the list
-			else if (current == head)
-			{
-				// Set the head to the second item in the list as the first is about to be removed
-				head = current->getNext();
-				head->setPrev(NULL);
-		
-			}
-			// If the last item in the list
-			else if (current == tail)
-			{
-				// Set the tail to the second last item in the list as the last is about to be removed
-				tail = current->getPrev();
-				tail->setNext(NULL);
-		
-			}
-			// The list has more than one item and the item to be removed is not at the head or tail
-			else
-			{
-				// Link the node before the current to the node after the current
-				current->getPrev()->setNext(current->getNext());
-				current->getNext()->setPrev(current->getPrev());
-			}
-			// Delete the current and decrement the size
-			delete(current);
-			size--;
-			// current has just been deleted so reset it to the head and start the loop over
+			restart = false;
 			jumpToHead();
+		}
+		// Check if the current of the temp list matches the current of the main Linked List
+		if (*temp.getCurrent() == *getCurrent())
+		{
+			// If it matches, move to the next item in the list, and check if the temp list's current has reached the tail
+			if (temp.moveNext() == -1)
+			{	
+				// The entire temp list is inside the main list so confirm by setting identified to True
+				identified = true;
+				// Walk back through the main Linked List to get to the start of the temp list occurrence
+				for (int i = 1; i < temp.getSize(); i++)
+				{
+					movePrev();
+				}
+				// Declare a new Node to keep track of where the deletion is occuring in the main list because removeCurrent resets current pointer to head
+				Node* newStart;
+				// Loop through the length of the temp list to delete each word
+				for (int i = 0; i < temp.getSize(); i++)
+				{
+					// If the phrase to be deleted is not at the start of the List
+					if (current->getPrev() != NULL)
+					{
+						// Set newStart to the Node just before the one that will be deleted
+						newStart = current->getPrev();
+						// Delete the current Node
+						deleteCurrent();
+						// If the Node that was deleted is not at the end of the Linked List, reset the current. If it was at the end, then that was the last occurence and the function is about to end
+						if (newStart->getNext() != NULL)
+						{
+							// Reset the current to the next of it's old previous to get to the new next item in the list
+							current = newStart->getNext();
+						}
+					}
+					// If the phrase to be deleted is at the start of the list
+					else
+					{
+						// deleteCurrent() already sets the current back to head so no need to shuffle
+						deleteCurrent();
+					}
+				}
+				// Reset temp's current to head in case there are multiple occurences of the phrase in the main Linked List
+				temp.jumpToHead();
+				// Ensure that current is reset at the start of the for loop as the for loop immediately goes to next
+				restart = true;
+			}
 		}
 	}
 	
 	// If no item was found, return
 	if (!identified)
 	{
-		cout << "No such item in list";
+		//cout << "No such item in list\n";
 		return;
 	}
 }
@@ -409,7 +432,44 @@ void LinkedList::swap(Node* a, Node* b)
 }
 
 
-
+void LinkedList::deleteCurrent()
+{
+			// If there is one item in the list
+			if (head == tail)
+			{
+				// Reset the head and tail as the list is about to become empty
+				head = NULL;
+				tail = NULL;
+			}
+			// If the first item in the list
+			else if (current == head)
+			{
+				// Set the head to the second item in the list as the first is about to be removed
+				head = current->getNext();
+				head->setPrev(NULL);
+		
+			}
+			// If the last item in the list
+			else if (current == tail)
+			{
+				// Set the tail to the second last item in the list as the last is about to be removed
+				tail = current->getPrev();
+				tail->setNext(NULL);
+		
+			}
+			// The list has more than one item and the item to be removed is not at the head or tail
+			else
+			{
+				// Link the node before the current to the node after the current
+				current->getPrev()->setNext(current->getNext());
+				current->getNext()->setPrev(current->getPrev());
+			}
+			// Delete the current and decrement the size
+			delete(current);
+			size--;
+			// current has just been deleted so reset it to the head and start the loop over
+			jumpToHead();
+}
 
 
 

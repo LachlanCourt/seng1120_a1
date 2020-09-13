@@ -42,7 +42,7 @@ class LinkedList
 		//precondition: None (Empty list possibility is checked during function)
 		//postcondition: Linked List has data added as a new node at the start of the list
 		void addToHead(value_type* data_);
-		//precondition: None (Empty list possibility is checked during function)
+		//precondition: identifier cannot be NULL but can be empty
 		//postcondition: All items that match the specified identifier will be removed from the list
 		void remove(const value_type identifier);
 		//precondition: None (Empty list possibility is checked during function)
@@ -82,7 +82,9 @@ class LinkedList
 		
 		//precondition: Neither argument can be NULL
 		//postcondition: The Nodes will be swapped in the Linked List by manipulating the next and previous values
-		void swap(Node* a, Node* b);		
+		void swap(Node* a, Node* b);
+
+		void deleteCurrent();
 };
 
 //precondition: temp cannot be NULL but the Linked List itself can be empty

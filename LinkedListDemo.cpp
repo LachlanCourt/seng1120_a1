@@ -5,6 +5,8 @@
 //Program Description: This program demonstrates the basic functionality of a linked list that stores strings. 
 //It will demo the functions of a basic linked list.
 //The program adds content to a linked list, removes individual nodes, among other functionalities.
+//
+// v1.01 - corrected typo in bonus section.
 
 #include <iostream>
 #include <cstdlib>
@@ -54,11 +56,11 @@ int main()
 	cout << firstList.count("black") << endl << endl;
 	
 //  Uncomment this section if you are implementing the extended version of the method remove()	
-//	cout << Removing 'on the black' from both lists:" << endl;
-//	firstList.remove("on the black");
-//	secondList.remove("on the black");
-//	cout << "List 1: " << firstList  << endl;
-//	cout << "List 2: " << secondList << endl << endl;
+	cout << "Removing 'on the black' from both lists:" << endl;
+	firstList.remove("on the black");
+	secondList.remove("on the black");
+	cout << "List 1: " << firstList  << endl;
+	cout << "List 2: " << secondList << endl << endl;
 
 	cout << "Sorting list 1:" << endl;
 	firstList.sort();
